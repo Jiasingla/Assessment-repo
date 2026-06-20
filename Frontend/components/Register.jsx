@@ -4,7 +4,7 @@ const Register = () => {
    async function submitHandler(e){
 e.preventDefault()
   try {
-    const response = await axios.post("http://localhost:3000/api/enquiry", {pname, email, phonenum}, {withCredentials: true})
+    const response = await axios.post("https://assessment-repo.onrender.com/api/enquiry", {pname, email, phonenum}, {withCredentials: true})
     console.log(response.data)
     if(response.data.message === "User already registered") {
       setStatus("exists")
