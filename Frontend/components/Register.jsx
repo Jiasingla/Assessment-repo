@@ -3,6 +3,16 @@ import axios from 'axios'
 const Register = () => {
    async function submitHandler(e){
 e.preventDefault()
+if(!pname.trim()) {
+    setStatus("errorName")
+    return
+  }if(!email.trim() || !email.includes("@")) {
+    setStatus("errorEmail")
+    return
+  }if(!phonenum.trim() || phonenum.toString().trim().length !== 10) {
+    setStatus("errorPhone")
+    return
+  }
   try {
     const response = await axios.post("https://assessment-repo.onrender.com/api/enquiry", {pname, email, phonenum}, {withCredentials: true})
     console.log(response.data)
@@ -43,6 +53,9 @@ setpname(e.target.value)
                 setphonenum(e.target.value)
             }} className='border border-amber-200 rounded-xl px-4 py-3 outline-none focus:border-amber-400' type="number" placeholder='9811222214' value={phonenum} name="phone"></input>
         </div>
+        {status === "errorName" && <p className='text-red-500 text-sm mt-3'>⚠️ Please enter your name</p>}
+{status === "errorEmail" && <p className='text-red-500 text-sm mt-3'>⚠️ Please enter a valid email</p>}
+{status === "errorPhone" && <p className='text-red-500 text-sm mt-3'>⚠️ Phone number must be 10 digits</p>}
         <button className='bg-[#F5A623] text-white font-bold px-6 py-2 rounded-xl mt-5 mb-5 w-full transform transition-all duration-300 ease-in-out 
              hover:scale-100 hover:shadow-[0_0_15px_rgba(245,166,35,0.8)]'>Enroll Now only in Rs.2,999</button>
       </form>
